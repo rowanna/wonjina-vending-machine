@@ -68,6 +68,14 @@ body {
   /* flex-direction: column; */
 }
 
+.dispensing-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  margin: 15px;
+}
+
 .slot {
   height: 60px;
   background-color: #7f8c8d;

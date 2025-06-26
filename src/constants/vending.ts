@@ -1,7 +1,7 @@
 export const DRINKS = [
-  { name: "콜라", price: 1100, stock: 3 },
-  { name: "물", price: 600, stock: 2 },
-  { name: "커피", price: 700, stock: 1 },
+  { name: "콜라", price: 1100, stock: 3, emoji: "🥤" },
+  { name: "물", price: 600, stock: 2, emoji: "💧" },
+  { name: "커피", price: 700, stock: 1, emoji: "☕️" },
 ];
 
 export const VALID_CARDS = ["현대", "삼성", "국민"];
