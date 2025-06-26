@@ -1,0 +1,98 @@
+body {
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+.vending-machine {
+  width: 340px;
+  background-color: #2c3e50;
+  border-radius: 20px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.screen {
+  background-color: #1abc9c;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.drink-btn,
+.payment-btn {
+  background-color: #34495e;
+  border: none;
+  border-radius: 8px;
+  height: 60px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.drink-btn:hover,
+.payment-btn:hover {
+  background-color: #16a085;
+}
+
+.payment-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  margin: 15px;
+}
+
+.payment-cash-section {
+  display: flex;
+  /* flex-direction: column; */
+}
+
+.slot {
+  height: 60px;
+  background-color: #7f8c8d;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9em;
+  color: #ecf0f1;
+}
+
+.ports {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.port {
+  width: 40%;
+  height: 40px;
+  background-color: #95a5a6;
+  border-radius: 6px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 0.85em;
+}
+
+.label {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.8em;
+  color: #bdc3c7;
+}
