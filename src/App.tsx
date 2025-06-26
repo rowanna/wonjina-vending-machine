@@ -1,5 +1,5 @@
 import "./App.css";
-import VendingMachine from "./assets/components/VendingMachine/VendingMachine";
+import VendingMachine from "./components/VendingMachine/VendingMachine";
 
 function App() {
   return (

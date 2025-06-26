@@ -1,13 +1,14 @@
 import { useState } from "react";
 import "./VendingMachine.css";
-
-const DRINKS = [
-  { name: "콜라", price: 1100, stock: 3 },
-  { name: "물", price: 600, stock: 2 },
-  { name: "커피", price: 700, stock: 1 },
-];
-
-const VALID_CARDS = ["현대", "삼성", "국민"];
+import {
+  DRINKS,
+  VALID_CARDS,
+  INIT_SLOT_MESSAGE,
+  INIT_SCREEN_MESSAGE,
+  DISPLAY_CARDS,
+  VALID_CASH,
+  DISPLAY_CASH,
+} from "../../constants/vending";
 
 export default function VendingMachine() {
   const [drinks, setDrinks] = useState(DRINKS);
@@ -15,12 +16,13 @@ export default function VendingMachine() {
     name: string;
     price: number;
   } | null>(null);
-  const [screenMessage, setScreenMessage] = useState("음료를 선택해주세요");
-  const [slotMessage, setSlotMessage] = useState("→ 음료가 나오는 곳 ←");
+  const [screenMessage, setScreenMessage] = useState(INIT_SCREEN_MESSAGE);
+  const [slotMessage, setSlotMessage] = useState(INIT_SLOT_MESSAGE);
   const [step, setStep] = useState<"drink" | "payment-type" | "card" | "cash">(
     "drink"
   );
   const [insertedCash, setInsertedCash] = useState<number>(0);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const selectDrink = (drinkName: string) => {
     const drink = drinks.find((d) => d.name === drinkName);
@@ -50,11 +52,17 @@ export default function VendingMachine() {
 
     setScreenMessage(`${card} 카드로 '${selectedDrink?.name}' 결제 완료!`);
     setSlotMessage(`${selectedDrink?.name} 나오는 중...`);
+    setIsProcessing(true);
     if (selectedDrink) updateDrinkStock(selectedDrink.name);
     resetAfterDelay();
   };
 
   const addCash = (amount: number) => {
+    if (!VALID_CASH.includes(amount)) {
+      setScreenMessage(`'${amount}'원은 사용 불가합니다`);
+      return;
+    }
+
     const newTotal = insertedCash + amount;
     setInsertedCash(newTotal);
 
@@ -68,6 +76,7 @@ export default function VendingMachine() {
 
       setScreenMessage(message);
       setSlotMessage(`${selectedDrink.name} 나오는 중...`);
+      setIsProcessing(true);
       if (selectedDrink) updateDrinkStock(selectedDrink.name);
 
       resetAfterDelay();
@@ -80,11 +89,12 @@ export default function VendingMachine() {
 
   const resetAfterDelay = () => {
     setTimeout(() => {
-      setScreenMessage("음료를 선택해주세요");
-      setSlotMessage("→ 음료가 나오는 곳 ←");
+      setScreenMessage(INIT_SCREEN_MESSAGE);
+      setSlotMessage(INIT_SLOT_MESSAGE);
       setSelectedDrink(null);
       setInsertedCash(0);
       setStep("drink");
+      setIsProcessing(false);
     }, 3000);
   };
 
@@ -125,9 +135,10 @@ export default function VendingMachine() {
         {step === "card" && (
           <div className="payment-section">
             <div>카드 종류 선택:</div>
-            {["현대", "삼성", "국민", "롯데", "농협"].map((card) => (
+            {DISPLAY_CARDS.map((card) => (
               <button
                 key={card}
+                disabled={isProcessing}
                 className="payment-btn"
                 onClick={() => payWithCard(card)}
               >
@@ -141,10 +152,11 @@ export default function VendingMachine() {
           <div className="payment-section">
             <div>현금 투입:</div>
             <div className="payment-cash-section">
-              {[100, 500, 1000, 5000, 10000].map((amount) => (
+              {DISPLAY_CASH.map((amount) => (
                 <button
                   key={amount}
                   className="payment-btn"
+                  disabled={isProcessing}
                   onClick={() => addCash(amount)}
                 >
                   {amount.toLocaleString()}원

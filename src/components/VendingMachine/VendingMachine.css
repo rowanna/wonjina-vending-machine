@@ -45,6 +45,11 @@ body {
   transition: 0.2s;
 }
 
+.drink-btn:disabled,
+.payment-btn:disabled {
+  cursor: not-allowed;
+}
+
 .drink-btn:hover,
 .payment-btn:hover {
   background-color: #16a085;
