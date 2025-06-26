@@ -1,0 +1,21 @@
+.title {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.go-to-home {
+  margin: 20px auto;
+  border: none;
+  background-color: none;
+}
+.go-to-home a {
+  text-decoration: none;
+  font-weight: 700;
+  color: #000;
+}
+
+.go-to-home a:hover {
+  color: #1abc9c;
+}

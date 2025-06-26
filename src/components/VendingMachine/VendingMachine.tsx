@@ -9,6 +9,7 @@ import {
   VALID_CASH,
   DISPLAY_CASH,
 } from "../../constants/vending";
+import Button from "../common/Button";
 
 export default function VendingMachine() {
   const [drinks, setDrinks] = useState(DRINKS);
@@ -120,14 +121,13 @@ export default function VendingMachine() {
 
   return (
     <div>
-      <h1>Vending Machine</h1>
       <div className="vending-machine">
         <div className="screen">{screenMessage}</div>
 
         {step === "drink" && (
           <div className="buttons">
             {drinks.map((drink) => (
-              <button
+              <Button
                 key={drink.name}
                 className="drink-btn"
                 onClick={() => selectDrink(drink.name)}
@@ -136,19 +136,19 @@ export default function VendingMachine() {
               >
                 {drink.name} <span>{drink.price.toLocaleString()}원</span>
                 <div style={{ fontSize: "0.8em" }}>재고: {drink.stock}</div>
-              </button>
+              </Button>
             ))}
           </div>
         )}
 
         {step === "payment-type" && (
           <div className="payment-section">
-            <button className="payment-btn" onClick={() => setStep("card")}>
+            <Button className="payment-btn" onClick={() => setStep("card")}>
               카드 결제
-            </button>
-            <button className="payment-btn" onClick={() => setStep("cash")}>
+            </Button>
+            <Button className="payment-btn" onClick={() => setStep("cash")}>
               현금 결제
-            </button>
+            </Button>
           </div>
         )}
 
@@ -156,14 +156,14 @@ export default function VendingMachine() {
           <div className="payment-section">
             <div>카드 종류 선택:</div>
             {DISPLAY_CARDS.map((card) => (
-              <button
+              <Button
                 key={card}
                 disabled={isProcessing}
                 className="payment-btn"
                 onClick={() => payWithCard(card)}
               >
                 {card} 카드
-              </button>
+              </Button>
             ))}
           </div>
         )}
@@ -173,14 +173,14 @@ export default function VendingMachine() {
             <div>현금 투입:</div>
             <div className="payment-cash-section">
               {DISPLAY_CASH.map((amount) => (
-                <button
+                <Button
                   key={amount}
                   className="payment-btn"
                   disabled={isProcessing}
                   onClick={() => addCash(amount)}
                 >
                   {amount.toLocaleString()}원
-                </button>
+                </Button>
               ))}
             </div>
             <div>누적 투입 금액: {insertedCash.toLocaleString()}원</div>
